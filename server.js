@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
+const errorHandler = require('./middleware/error');
 
 const employee = require('./routes/employee');
 const auth = require('./routes/authentication');
@@ -23,6 +24,6 @@ app.use(express.json());
 app.use(`${baseUrl}/employee`, employee);
 app.use(`${baseUrl}/auth`, auth);
 
-
+app.use(errorHandler);
 
 app.listen(PORT, console.log(`Listening on Port ${PORT}`));
