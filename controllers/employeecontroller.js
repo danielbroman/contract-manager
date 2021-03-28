@@ -2,9 +2,9 @@ const Employee = require('../models/Employee');
 const ErrorResponse = require('../utils/errorresponse');
 
 // @desc     Get all employees
-// @route    GET /api/v1/auth/employee
+// @route    GET /api/v1/employee
 // @access   Private
-exports.getAllEmployees = async (req, res) => {
+exports.getAllEmployees = async (req, res, next) => {
     try {
         const employees = await Employee.find();
         res.status(200).json({status: "success", data: employees});
@@ -15,7 +15,7 @@ exports.getAllEmployees = async (req, res) => {
 };
 
 // @desc     Get employee by Id
-// @route    GET /api/v1/auth/employee/:employeeId
+// @route    GET /api/v1/employee/:employeeId
 // @access   Private
 exports.getEmployeeById = async (req, res, next) => {
     try {
@@ -28,9 +28,9 @@ exports.getEmployeeById = async (req, res, next) => {
 };
 
 // @desc     Create a new employee
-// @route    POST /api/v1/auth/employee
+// @route    POST /api/v1/employee
 // @access   Private
-exports.createEmployee = async (req, res) => {
+exports.createEmployee = async (req, res, next) => {
     try {
         const {firstname, lastname, email} = req.body
         const employee = await Employee.create(firstname, lastname, email);
@@ -42,9 +42,9 @@ exports.createEmployee = async (req, res) => {
 };
 
 // @desc     Update an employee by Id
-// @route    PUT /api/v1/auth/employee/:employeeId
+// @route    PUT /api/v1/employee/:employeeId
 // @access   Private
-exports.updateEmployee = async (req, res) => {
+exports.updateEmployee = async (req, res, next) => {
     try {
         const employee = await Employee.findByIdAndUpdate(req.params.employeeId, req.body, {
             new: true,
@@ -58,9 +58,9 @@ exports.updateEmployee = async (req, res) => {
 };
 
 // @desc     Delete an employee by Id
-// @route    DELETE /api/v1/auth/employee/:employeeId
+// @route    DELETE /api/v1/employee/:employeeId
 // @access   Private
-exports.deleteEmployee = async (req, res) => {
+exports.deleteEmployee = async (req, res, next) => {
     try {
         await Employee.deleteOne({_Id: req.params.employeeId});
         res.status(200).json({status: "success", message: `Successfuly deleted employee with Id: ${req.params.employeeId}`});

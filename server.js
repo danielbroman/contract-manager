@@ -5,6 +5,7 @@ const errorHandler = require('./middleware/error');
 
 const employee = require('./routes/employee');
 const auth = require('./routes/authentication');
+const user = require('./routes/user');
 
 const baseUrl = "/api/v1";
 
@@ -23,6 +24,7 @@ app.use(express.json());
 
 app.use(`${baseUrl}/employee`, employee);
 app.use(`${baseUrl}/auth`, auth);
+app.use(`${baseUrl}/user`, user);
 
 app.use(errorHandler);
 
