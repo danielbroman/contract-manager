@@ -1,40 +1,34 @@
 const mongoose = require('mongoose');
+const Address = require('./Address');
+const Signature = require('./Signature');
+const Goods = require('./Goods');
 
 const ContractSchema = new mongoose.Schema({
     sender: {
         type: String,
         required: true
     },
-    senderAddress: {
-        street: {
-            type: String
-        },
-        zipCode: {
-            type: Number
-        },
-        city: {
-            type: String
-        }
-    },
+    senderAddress: Address,
     receiver: {
         type: String,
         required: true
     },
-    receiverAddress: {
-        street: {
-            type: String
-        },
-        zipCode: {
-            type: Number
-        },
-        city: {
-            type: String
-        }
-    },
+    receiverAddress: Address,
     driverId: {
         type: Number,
         required: true
-    }
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now()
+    },
+    description: {
+        type: String
+    },
+    receiverSignature: Signature,
+    driverSignature: Signature,
+    consignorSignature: Signature,
+    goods: [Goods]
 });
 
 

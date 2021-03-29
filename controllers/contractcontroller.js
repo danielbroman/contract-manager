@@ -33,8 +33,20 @@ exports.getContractById = async (req, res, next) => {
 // @access   Private
 exports.createContract = async (req, res, next) => {
     try {
-        const {sender, senderAddress, receiver, receiverAddress, driverId} = req.body;
-        const contract = await Contract.create({sender, senderAddress, receiver, receiverAddress, driverId});
+        const data = {
+            sender, 
+            senderAddress, 
+            receiver, 
+            receiverAddress, 
+            driverId, 
+            goods, 
+            receiverSignature, 
+            driverSignature, 
+            consignorSignature
+        } = req.body;
+        
+        const contract = await Contract.create(data);
+
         res.status(201).json({status: "success", data: contract});
     }
     catch(err) {
